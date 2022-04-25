@@ -1,34 +1,50 @@
-// Main process, Renderer process
-const { app, BrowserWindow } = require('electron')
+// Modules to control application life and create a native browser window.
+// app module: controls the life of the app.
+// BrowserWindow module: create and manage the app windows.
+// Allows to include modules in app.
+const electron = require('electron');
 
-// Create the browser window.
-function createWindow () {
-    const mainWindow = new BrowserWindow({
+// Main process, Renderer process
+const { app, BrowserWindow } = electron;
+
+// Keep this window to create the application.
+let mainWindow;
+
+// Start application to show index.html files.
+app.on('ready', () => {
+    // Create a window.
+    mainWindow = new BrowserWindow({
+        // Set width and height of windows. 
         width: 800,
-        hieght: 600,
-        max_width: 1024,
-        max_height: 800,
-        show: false,
-        frame: false
-    })
-    // Load the index.html file.
-    mainWindow.loadFile('index.html')
+        height: 600,
+        webPreferences: {
+            // Set to use API of node js in the page.
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    // Load the main.html in window.
+    mainWindow.loadURL(`file://${__dirname}/src/main.html`)
 
     // Don't show until we are ready and loaded.
     mainWindow.once('ready-to-show', mainWindow.show)
-}
+
+    // The mainWindow instance on close.
+    mainWindow.on("closed", () => (mainWindow = null));
+
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-app.whenReady().then(createWindow)
+//app.whenReady().then(mainWindow)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
     // On macOS it is common for applications and their menu bar to stay active 
     // until the user quits explicitly with Cmd + Q.
-    if (process.platform !== 'darwin') { 
+    if (process.platform !== 'darwin') {
         app.quit()
-    } 
+    }
 })
 
 // Activate: Various actions can trigger this event.
