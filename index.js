@@ -6,6 +6,8 @@ function createWindow () {
     const mainWindow = new BrowserWindow({
         width: 800,
         hieght: 600,
+        max_width: 1024,
+        max_height: 800,
         show: false,
         frame: false
     })
