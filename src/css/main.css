@@ -165,13 +165,28 @@ body {
     background: url('../img/flag.png') no-repeat;
     background-size: cover;
   }
-  
+ 
+  .form-box{
+    margin-top: 16px;
+    height: 380px;
+    background-color: #ffffff;
+    border-radius: 3.5px;
+    border: 1px solid #ebebeb;
+  }
+
   .form-item{
     margin-top: 40px;
   }
   
   .form-item input{
     margin-left: 20px;
+  }
+
+  .form-input{
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: solid 0.05px #bebebe;
+    border-left-style: none;
   }
   
   .submit-task{
@@ -180,6 +195,7 @@ body {
     padding: 6px 15px;
     border-radius: 3px;
     cursor: pointer;
+    font-size: 15px;
   }
   
   .keep-times {

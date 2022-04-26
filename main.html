@@ -4,22 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <!-- create random title -->
+    <script language="javascript">
+       //  Random title.
+        var til = new Array(5);
+        til[0] = 'Task Manager - Nothing is impossible!'
+        til[1] = 'Task Manager - Time is money!'
+        til[2] = 'Task Manager - Victory belongs to the most persevering!'
+        til[3] = 'Task Manager - The unexamined life is not worth living!'
+        til[4] = 'Task Manager - Energy and persistence conquer all things!'
+        var indextitle = Math.floor(Math.random() * til.length); // Take a random integer.
+        onload = function chaTitle() {
+            var curTitle = til[indextitle]; // Get the title from the array based on the integer.
+            window.document.title += curTitle; // change the title.
+        }
+    </script>
     <link rel="stylesheet" type="text/css" href="./css/main.css">
     </link>
 </head>
 
 <body>
+    <!-- Navigation Bars -->
     <div class="nav">
         <div class="date"></div>
         <div class="nav-text">
             <p class="item enable-click">To Do List</p>
             <p class="item enable-click">Done</p>
+            <p class="item enable-click">Trash</p>
         </div>
         <div class="add enable-click">
             <span class="add-icon">+</span>
         </div>
     </div>
+    <!-- container -->
     <div class="content">
+        <!-- To do list -->
         <div class="content-manage content-active">
             <div class="content-title">
                 <h2>To Do List</h2>
@@ -27,6 +46,7 @@
             <div class="tasks task-todo"></div>
         </div>
 
+        <!-- Completed Tasks List -->
         <div class="content-manage">
             <div class="content-title">
                 <h2>Completed Tasks List</h2>
@@ -41,28 +61,47 @@
             </p>
         </div>
 
+        <!-- Delete Tasks List -->
         <div class="content-manage">
             <div class="content-title">
-                <h2>New Task</h2>
+                <h2>Delete Tasks List</h2>
             </div>
-            <div class="form-item">
+            <ul class="tasks task-deleted">
+                <li class="task-item">
+                    <span class="task-text"></span>
+                    <span class="flag-icon"></span>
+                </li>
+            </ul>
+            <p class="keep-text">Good Job! You have done<span class="keep-times">0</span>task(s). Keep up the good work.
+            </p>
+        </div>
+
+        <!-- New Task -->
+        <div class="content-manage">
+            <div class="content-title">
+              <h2>New Task</h2>
+            </div>
+            <div class="form-box">
+              <div class="form-item">
                 <label for="taskName">Task:</label>
-                <input type="text" id="taskName" class="enable-click" />
-            </div>
-            <div class="form-item">
+                <input type="text" id="taskName" class="enable-click form-input" required size="60"/>
+              </div>
+              <div class="form-item">
                 <label for="taskDate">Date:</label>
-                <input type="text" id="taskDate" placeholder="MM-DD-YYYY" />
+                <input type="text" id="taskDate" placeholder="MM-DD-YYYY" required />
             </div>
-            <div class="form-item">
+              <div class="form-item">
                 <label for="taskTime">Time:</label>
-                <input type="time" id="taskTime" class="enable-click">
-            </div>
-            <div class="form-item">
-                <span class="submit-task enable-click">SUBMIT</span>
+                <input type="time" id="taskTime" class="enable-click" required />
+              </div>
+              <div class="form-item">
+                <span class="submit-task enable-click">
+                  SUBMIT
+                </span>
+              </div>
             </div>
         </div>
     </div>
 </body>
-
 
 </html>
