@@ -4,61 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    </link>
 </head>
 
 <body>
-    <div>
-        <div></div>
-        <div>
-            <p>To Do List</p>
-            <p>Done</p>
+    <div class="nav">
+        <div class="date"></div>
+        <div class="nav-text">
+            <p class="item enable-click">To Do List</p>
+            <p class="item enable-click">Done</p>
         </div>
-        <div>
-            <span>+</span>
+        <div class="add enable-click">
+            <span class="add-icon">+</span>
         </div>
     </div>
-    <div>
-        <div>
-            <div>
+    <div class="content">
+        <div class="content-manage content-active">
+            <div class="content-title">
                 <h2>To Do List</h2>
             </div>
-            <div></div>
+            <div class="tasks task-todo"></div>
         </div>
 
-        <div>
-            <div>
+        <div class="content-manage">
+            <div class="content-title">
                 <h2>Completed Tasks List</h2>
             </div>
-            <ul>
-                <li>
-                    <span></span>
-                    <span></span>
+            <ul class="tasks">
+                <li class="task-item">
+                    <span class="task-text"></span>
+                    <span class="flag-icon"></span>
                 </li>
             </ul>
-            <p>Good Job! You have done task(s). Keep up the good work.</p>
+            <p class="keep-text">Good Job! You have done<span class="keep-times">0</span>task(s). Keep up the good work.
+            </p>
         </div>
 
-        <div>
-            <div>
+        <div class="content-manage">
+            <div class="content-title">
                 <h2>New Task</h2>
             </div>
-            <div>
+            <div class="form-item">
                 <label for="taskName">Task:</label>
-                <input type="text" id="taskName" />
+                <input type="text" id="taskName" class="enable-click" />
             </div>
-            <div>
+            <div class="form-item">
                 <label for="taskDate">Date:</label>
                 <input type="text" id="taskDate" placeholder="MM-DD-YYYY" />
             </div>
             <div class="form-item">
                 <label for="taskTime">Time:</label>
-                <input type="time" id="taskTime" >
+                <input type="time" id="taskTime" class="enable-click">
             </div>
-            <div>
-                <span>SUBMIT</span>
+            <div class="form-item">
+                <span class="submit-task enable-click">SUBMIT</span>
             </div>
         </div>
     </div>
 </body>
+
 
 </html>
