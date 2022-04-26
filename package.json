@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Awa555/CrossPlatformDevelopmentCA1#readme",
   "devDependencies": {
-    "electron": "^18.0.1"
+    "electron": "^18.0.1",
+    "electron-builder": "^22.14.13"
   }
 }
