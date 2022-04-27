@@ -55,3 +55,35 @@ tabManage.forEach((el, index) => {
         activeContent(index)
     })
 })
+
+// To do list event handler
+// when click done the files move to the done page
+// when click delete the files move to the trash page.
+taskTodo.addEventListener('click', (event) => {
+    const target = event.target
+    const index = target.getAttribute("data-index")
+    if (target.classList.contains('finish')) {
+        keepTimes = +keepTimes + 1
+        tasksFinished.push(tasksTodo[index])
+        tasksTodo.splice(index, 1)
+        localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
+        localStorage.setItem('tasksFinished', JSON.stringify(tasksFinished))
+        localStorage.setItem('keepTimes', keepTimes)
+        genFinished()
+        genTodo()
+        activeTab(1)
+        activeContent(1)
+    }
+    else if (target.classList.contains('delete')) {
+        keepTimes = +keepTimes + 1
+        tasksDeleted.push(tasksTodo[index])
+        tasksTodo.splice(index, 1)
+        localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
+        localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
+        localStorage.setItem('keepTimes', keepTimes)
+        activeTab(0)
+        activeContent(0)
+        genTodo()
+        genDeleted()
+    }
+})
