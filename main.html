@@ -28,11 +28,11 @@
     <div class="nav">
         <div class="date"></div>
         <div class="nav-text">
-            <p class="item enable-click">To Do List</p>
-            <p class="item enable-click">Done</p>
-            <p class="item enable-click">Trash</p>
+            <p class="item tab-manage nav-active enable-click">To Do List</p>
+            <p class="item tab-manage enable-click">Done</p>
+            <p class="item tab-manage enable-click">Trash</p>
         </div>
-        <div class="add enable-click">
+        <div class="add tab-manage enable-click">
             <span class="add-icon">+</span>
         </div>
     </div>
@@ -51,12 +51,7 @@
             <div class="content-title">
                 <h2>Completed Tasks List</h2>
             </div>
-            <ul class="tasks">
-                <li class="task-item">
-                    <span class="task-text"></span>
-                    <span class="flag-icon"></span>
-                </li>
-            </ul>
+            <div class="tasks task-finished"></div>
             <p class="keep-text">Good Job! You have done<span class="keep-times">0</span>task(s). Keep up the good work.
             </p>
         </div>
@@ -66,14 +61,8 @@
             <div class="content-title">
                 <h2>Delete Tasks List</h2>
             </div>
-            <ul class="tasks task-deleted">
-                <li class="task-item">
-                    <span class="task-text"></span>
-                    <span class="flag-icon"></span>
-                </li>
-            </ul>
-            <p class="keep-text">Good Job! You have done<span class="keep-times">0</span>task(s). Keep up the good work.
-            </p>
+            <div class="tasks task-deleted"></div>
+            <p class="keep-text">Goodbye.</p>
         </div>
 
         <!-- New Task -->
@@ -103,5 +92,5 @@
         </div>
     </div>
 </body>
-
+<script src="./js/main.js"></script>
 </html>
