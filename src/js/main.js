@@ -1,4 +1,5 @@
 const electron = require('electron')
+const { ipcRenderer } = electron
 
 // Specified and get document.
 const tabManage = document.querySelectorAll('.tab-manage')
@@ -56,6 +57,25 @@ tabManage.forEach((el, index) => {
     })
 })
 
+// Navigation active.
+function activeTab(index) {
+    tabManage.forEach((tabEl) => {
+      tabEl.classList.remove('nav-active')
+    })
+    tabManage[index].classList.add('nav-active')
+  }
+
+// Content active.
+function activeContent(index) {
+    contentManage.forEach((taskEl) => {
+      taskEl.classList.remove('content-active')
+    })
+    contentManage[index].classList.add('content-active')
+    taskName.value = ''
+    taskDate.value = ''
+    taskTime.value = ''
+}
+
 // To do list event handler
 // when click done the files move to the done page
 // when click delete the files move to the trash page.
@@ -87,3 +107,23 @@ taskTodo.addEventListener('click', (event) => {
         genDeleted()
     }
 })
+
+// Create New Task
+const taskName = document.querySelector('#taskName')
+const taskDate = document.querySelector('#taskDate')
+const taskTime = document.querySelector('#taskTime')
+document.querySelector('.submit-task').addEventListener('click', () => {
+    const name = taskName.value, taskdate = taskDate.value, time = taskTime.value;
+    tasksTodo.push({
+        name: name,
+        date: taskdate,
+        time: time
+    });
+    localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo));
+    if (!!time) ipcRenderer.send('setTaskTimer', time, taskdate, encodeURIComponent(name));
+    genTodo()
+    activeTab(0)
+    activeContent(0)
+});
+
+
