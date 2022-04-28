@@ -40,12 +40,12 @@ body {
 
   .nav-text{
     flex: 1;
-    font-size: 16px;
+    font-size: 19px;
     font-weight: bold;
    }
    
    .nav-text>.item{
-     padding: 18px 12px;
+     padding: 20px 12px;
      border-radius: 3px;
      cursor: pointer;
    }
@@ -175,18 +175,25 @@ body {
   }
 
   .form-item{
-    margin-top: 40px;
-  }
-  
-  .form-item input{
-    margin-left: 20px;
+    margin: 40px 0 0 40px;
   }
 
+  .form-item input{
+    margin-left: 10px;
+  }
+  
   .form-input{
     border-top-style: none;
     border-right-style: none;
-    border-bottom-style: solid 0.05px #bebebe;
+    border-bottom-style: solid #dadada;
     border-left-style: none;
+    margin-left: 20px;
+    width: 400px;
+    font-size: 16px;
+  }
+
+  .form-submit {
+    margin: 60px 0 0 250px;
   }
   
   .submit-task{

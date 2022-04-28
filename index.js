@@ -2,27 +2,29 @@
 // app module: controls the life of the app.
 // BrowserWindow module: create and manage the app windows.
 // Allows to include modules in app.
-const electron = require('electron');
+const electron = require('electron')
 
-// Main process, Renderer process
-const { app, BrowserWindow } = electron;
+// For launching new Renderer processes by running app, browserWindow.
+const { app, BrowserWindow } = electron
 
 // Keep this window to create the application.
-let mainWindow;
+let mainWindow
 
 // Start application to show index.html files.
 app.on('ready', () => {
     // Create a window.
     mainWindow = new BrowserWindow({
+        // Not allow the user to change the size of window.
+        resizable: false,
         // Set width and height of windows. 
         width: 800,
         height: 600,
         webPreferences: {
             // Set to use API of node js in the page.
-            nodeIntegration: true,
+            nodeIntegration: true, 
             contextIsolation: false,
-        },
-    });
+        }
+    })
     // Load the main.html in window.
     mainWindow.loadURL(`file://${__dirname}/src/main.html`)
 
@@ -31,8 +33,8 @@ app.on('ready', () => {
 
     // The mainWindow instance on close.
     mainWindow.on("closed", () => (mainWindow = null));
-
-});
+    
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

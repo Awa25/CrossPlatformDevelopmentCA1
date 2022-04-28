@@ -4,7 +4,7 @@
   "description": "Cross Platform Development Class CA1: Task Management",
   "main": "index.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron index.js",
     "dev": "electron ."
   },
   "repository": {
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Awa555/CrossPlatformDevelopmentCA1#readme",
   "devDependencies": {
-    "electron": "^18.0.1",
+    "electron": "^18.0.3",
     "electron-builder": "^22.14.13"
   }
 }

@@ -29,18 +29,18 @@ keepTimes = keepTimes ? keepTimes : 0
 
 // Determine the last login time, if it is today, then the task, otherwise clear.
 if (!loginTime) {
-    loginTime = nowTime
+  loginTime = nowTime
 } 
 else {
-    const loginD = new Date(loginTime).getTime()
-    if (date.getDate() !== loginD.getDate() || nowTime - loginTime >= 24 * 3600 * 1000) {
-        tasksFinished = []
-        tasksTodo = []
-        tasksDeleted = []
-        localStorage.setItem('tasksFinished', JSON.stringify(tasksFinished))
-        localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
-        localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
-    }
+  const loginD = new Date(loginTime).getTime()
+  if (date.getDate() !== loginD.getDate() || nowTime - loginTime >= 24 * 3600 * 1000) {
+    tasksFinished = []
+    tasksTodo = []
+    tasksDeleted = []
+    localStorage.setItem('tasksFinished', JSON.stringify(tasksFinished))
+    localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
+    localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
+  }
 }
 
 // Initialization Date.
@@ -51,61 +51,61 @@ genDeleted()
 
 // Event handler.
 tabManage.forEach((el, index) => {
-    el.addEventListener('click', () => {
-        activeTab(index)
-        activeContent(index)
-    })
+  el.addEventListener('click', () => {
+    activeTab(index)
+    activeContent(index)
+  })
 })
 
 // Navigation active.
 function activeTab(index) {
-    tabManage.forEach((tabEl) => {
-      tabEl.classList.remove('nav-active')
-    })
-    tabManage[index].classList.add('nav-active')
-  }
+  tabManage.forEach((tabEl) => {
+    tabEl.classList.remove('nav-active')
+  })
+  tabManage[index].classList.add('nav-active')
+}
 
 // Content active.
 function activeContent(index) {
-    contentManage.forEach((taskEl) => {
-      taskEl.classList.remove('content-active')
-    })
-    contentManage[index].classList.add('content-active')
-    taskName.value = ''
-    taskDate.value = ''
-    taskTime.value = ''
+  contentManage.forEach((taskEl) => {
+    taskEl.classList.remove('content-active')
+  })
+  contentManage[index].classList.add('content-active')
+  taskName.value = ''
+  taskDate.value = ''
+  taskTime.value = ''
 }
 
 // To do list event handler
 // when click done the files move to the done page
 // when click delete the files move to the trash page.
 taskTodo.addEventListener('click', (event) => {
-    const target = event.target
-    const index = target.getAttribute("data-index")
-    if (target.classList.contains('finish')) {
-        keepTimes = +keepTimes + 1
-        tasksFinished.push(tasksTodo[index])
-        tasksTodo.splice(index, 1)
-        localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
-        localStorage.setItem('tasksFinished', JSON.stringify(tasksFinished))
-        localStorage.setItem('keepTimes', keepTimes)
-        genFinished()
-        genTodo()
-        activeTab(1)
-        activeContent(1)
-    }
-    else if (target.classList.contains('delete')) {
-        keepTimes = +keepTimes + 1
-        tasksDeleted.push(tasksTodo[index])
-        tasksTodo.splice(index, 1)
-        localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
-        localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
-        localStorage.setItem('keepTimes', keepTimes)
-        activeTab(0)
-        activeContent(0)
-        genTodo()
-        genDeleted()
-    }
+  const target = event.target
+  const index = target.getAttribute("data-index")
+  if (target.classList.contains('finish')) {
+    keepTimes = +keepTimes + 1
+    tasksFinished.push(tasksTodo[index])
+    tasksTodo.splice(index, 1)
+    localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
+    localStorage.setItem('tasksFinished', JSON.stringify(tasksFinished))
+    localStorage.setItem('keepTimes', keepTimes)
+    genFinished()
+    genTodo()
+    activeTab(1)
+    activeContent(1)
+  }
+  else if (target.classList.contains('delete')) {
+    keepTimes = +keepTimes + 1
+    tasksDeleted.push(tasksTodo[index])
+    tasksTodo.splice(index, 1)
+    localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
+    localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
+    localStorage.setItem('keepTimes', keepTimes)
+    activeTab(0)
+    activeContent(0)
+    genTodo()
+    genDeleted()
+  }
 })
 
 // Create New Task
@@ -113,69 +113,69 @@ const taskName = document.querySelector('#taskName')
 const taskDate = document.querySelector('#taskDate')
 const taskTime = document.querySelector('#taskTime')
 document.querySelector('.submit-task').addEventListener('click', () => {
-    const name = taskName.value, taskdate = taskDate.value, time = taskTime.value;
-    tasksTodo.push({
-        name: name,
-        date: taskdate,
-        time: time
-    });
-    localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo));
-    if (!!time) ipcRenderer.send('setTaskTimer', time, taskdate, encodeURIComponent(name));
-    genTodo()
-    activeTab(0)
-    activeContent(0)
+  const name = taskName.value, taskdate = taskDate.value, time = taskTime.value;
+  tasksTodo.push({
+    name: name,
+    date: taskdate,
+    time: time
+  });
+  localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo));
+  if (!!time) ipcRenderer.send('setTaskTimer', time, taskdate, encodeURIComponent(name));
+  genTodo();
+  activeTab(0);
+  activeContent(0);
 });
 
 // Set To Do list
 function genTodo() {
-    let todoHtml = ''
-    tasksTodo.forEach((item, index) => {
-        todoHtml +=
-            `<div class="task-item">
-            <div>
-              <span class="task-text">${item.name}</span>
-              <p class="task-text2">Due: ${item.date}&nbsp;&nbsp;&nbsp; at ${item.time}</p>
-            </div>
-            <div class="btnBox-line">
-              <span class="btns finish enable-click" data-index="${index}">Done</span>
-              <span class="btns delete enable-click" data-index="${index}">Delete</span>
-            </div>
-          </div>`
-    })
-    taskTodo.innerHTML = todoHtml
+  let todoHtml = ''
+  tasksTodo.forEach((item, index) => {
+    todoHtml +=
+      `<div class="task-item">
+          <div>
+            <span class="task-text">${item.name}</span>
+            <p class="task-text2">Due: ${item.date}&nbsp;&nbsp;&nbsp; at ${item.time}</p>
+          </div>
+          <div class="btnBox-line">
+            <span class="btns finish enable-click" data-index="${index}">Done</span>
+            <span class="btns delete enable-click" data-index="${index}">Delete</span>
+          </div>
+        </div>`
+  })
+  taskTodo.innerHTML = todoHtml
 }
 
 // Set Completed task list
 function genFinished() {
-    let finishHtml = ''
-    tasksFinished.forEach((item) => {
-        finishHtml +=
-            `<div class="task-item">
-          <div>
-            <span class="task-text">${item.name}</span>
-            <p class="task-text2">Due: ${item.date}&nbsp;&nbsp;&nbsp; at ${item.time}</p>
-          </div>
-          <div>
-            <span class="flag-icon"></span>
-          </div>
-        </div>`
-    })
-    taskFinished.innerHTML = finishHtml
-    keepTimesDom.innerHTML = keepTimes
+  let finishHtml = ''
+  tasksFinished.forEach((item) => {
+    finishHtml +=
+      `<div class="task-item">
+        <div>
+          <span class="task-text">${item.name}</span>
+          <p class="task-text2">Due: ${item.date}&nbsp;&nbsp;&nbsp; at ${item.time}</p>
+        </div>
+        <div>
+          <span class="flag-icon"></span>
+        </div>
+      </div>`
+  })
+  taskFinished.innerHTML = finishHtml
+  keepTimesDom.innerHTML = keepTimes
 }
 
 // Set Deleted task list
 function genDeleted() {
-    let deleteHtml = ''
-    tasksDeleted.forEach((item) => {
-        deleteHtml +=
-            `<div class="task-item">
-          <div>
-            <span class="task-text">${item.name}</span>
-            <p class="task-text2">Due: ${item.date}&nbsp;&nbsp;&nbsp; at ${item.time}</p>
-          </div>
-        </div>`
-    })
-    taskDeleted.innerHTML = deleteHtml
-    keepTimesDom.innerHTML = keepTimes
+  let deleteHtml = ''
+  tasksDeleted.forEach((item) => {
+    deleteHtml +=
+      `<div class="task-item">
+        <div>
+          <span class="task-text">${item.name}</span>
+          <p class="task-text2">Due: ${item.date}&nbsp;&nbsp;&nbsp; at ${item.time}</p>
+        </div>
+      </div>`
+  })
+  taskDeleted.innerHTML = deleteHtml
+  keepTimesDom.innerHTML = keepTimes
 }
