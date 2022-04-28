@@ -126,4 +126,56 @@ document.querySelector('.submit-task').addEventListener('click', () => {
     activeContent(0)
 });
 
+// Set To Do list
+function genTodo() {
+    let todoHtml = ''
+    tasksTodo.forEach((item, index) => {
+        todoHtml +=
+            `<div class="task-item">
+            <div>
+              <span class="task-text">${item.name}</span>
+              <p class="task-text2">Due: ${item.date}&nbsp;&nbsp;&nbsp; at ${item.time}</p>
+            </div>
+            <div class="btnBox-line">
+              <span class="btns finish enable-click" data-index="${index}">Done</span>
+              <span class="btns delete enable-click" data-index="${index}">Delete</span>
+            </div>
+          </div>`
+    })
+    taskTodo.innerHTML = todoHtml
+}
 
+// Set Completed task list
+function genFinished() {
+    let finishHtml = ''
+    tasksFinished.forEach((item) => {
+        finishHtml +=
+            `<div class="task-item">
+          <div>
+            <span class="task-text">${item.name}</span>
+            <p class="task-text2">Due: ${item.date}&nbsp;&nbsp;&nbsp; at ${item.time}</p>
+          </div>
+          <div>
+            <span class="flag-icon"></span>
+          </div>
+        </div>`
+    })
+    taskFinished.innerHTML = finishHtml
+    keepTimesDom.innerHTML = keepTimes
+}
+
+// Set Deleted task list
+function genDeleted() {
+    let deleteHtml = ''
+    tasksDeleted.forEach((item) => {
+        deleteHtml +=
+            `<div class="task-item">
+          <div>
+            <span class="task-text">${item.name}</span>
+            <p class="task-text2">Due: ${item.date}&nbsp;&nbsp;&nbsp; at ${item.time}</p>
+          </div>
+        </div>`
+    })
+    taskDeleted.innerHTML = deleteHtml
+    keepTimesDom.innerHTML = keepTimes
+}
