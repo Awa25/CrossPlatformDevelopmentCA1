@@ -9,6 +9,7 @@ const taskFinished = document.querySelector('.task-finished')
 const taskDeleted = document.querySelector('.task-deleted')
 const keepTimesDom = document.querySelector('.keep-times')
 const date = new Date(), nowTime = date.getTime()
+const closeDom = document.querySelector('.close')
 
 
 /** task data structure
@@ -44,7 +45,7 @@ else {
 }
 
 // Initialization Date.
-document.querySelector('.date').innerText = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
+document.querySelector('.date').innerText = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
 genTodo()
 genFinished()
 genDeleted()
@@ -179,3 +180,7 @@ function genDeleted() {
   taskDeleted.innerHTML = deleteHtml
   keepTimesDom.innerHTML = keepTimes
 }
+
+closeDom.addEventListener('click', () => {
+  ipcRenderer.send('mainWindow:close')
+})
