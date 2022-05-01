@@ -8,7 +8,7 @@ const electron = require('electron')
 const path = require('path')
 
 // For launching new Renderer processes by running app, browserWindow.
-const { app, BrowserWindow } = electron
+const { app, BrowserWindow, ipcMain, Menu, Tray, screen } = electron
 
 // System tray icon.
 const iconPath = path.join(__dirname, './src/img/icon.png') 
@@ -31,7 +31,7 @@ app.on('ready', () => {
         webPreferences: {
             backgroundThrottling: false,
             // Set to use API of node js in the page.
-            nodeIntegration: true, 
+            nodeIntegration: true,
             contextIsolation: false,
         }
     })
@@ -67,8 +67,9 @@ app.on('ready', () => {
         ])
         tray.popUpContextMenu(menuConfig)
     })
-    
 })
+
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -89,6 +90,9 @@ app.on('activate', () => {
         createWindow()
     }
 })
+
+
+
 
 
 ipcMain.on('mainWindow:close', () => {
