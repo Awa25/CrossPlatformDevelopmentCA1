@@ -16,7 +16,7 @@ const closeDom = document.querySelector('.close')
 * name, time, date
 **/
 
-// LocalStorage.
+// LocalStorage - get value.
 let loginTime = localStorage.getItem('loginTime')
 let tasksTodo = localStorage.getItem('tasksTodo')
 let tasksFinished = localStorage.getItem('tasksFinished')
@@ -37,10 +37,13 @@ else {
   if (date.getDate() !== loginD.getDate() || nowTime - loginTime >= 24 * 3600 * 1000) {
     tasksFinished = []
     tasksTodo = []
-    tasksDeleted = []
+    //tasksDeleted = []
+
+    // LocalStorage - save value.
+    // JSON.stringify - convert data to string.
     localStorage.setItem('tasksFinished', JSON.stringify(tasksFinished))
     localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
-    localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
+    //localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
   }
 }
 
@@ -96,12 +99,12 @@ taskTodo.addEventListener('click', (event) => {
     activeContent(1)
   }
   else if (target.classList.contains('delete')) {
-    keepTimes = +keepTimes + 1
+    //keepTimes = +keepTimes + 1
     tasksDeleted.push(tasksTodo[index])
     tasksTodo.splice(index, 1)
     localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
     localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
-    localStorage.setItem('keepTimes', keepTimes)
+    //localStorage.setItem('keepTimes', keepTimes)
     activeTab(0)
     activeContent(0)
     genTodo()
@@ -178,9 +181,18 @@ function genDeleted() {
       </div>`
   })
   taskDeleted.innerHTML = deleteHtml
-  keepTimesDom.innerHTML = keepTimes
+  //keepTimesDom.innerHTML = keepTimes
 }
 
 closeDom.addEventListener('click', () => {
   ipcRenderer.send('mainWindow:close')
+})
+
+taskDeleted.addEventListener('click', (taskRemoved) => {
+  const target = taskRemoved.target
+  if(target.classList.contains('removed')){
+    if(confirm('Are You Sure?')){
+      localStorage.removeItem()
+    }
+  }
 })
