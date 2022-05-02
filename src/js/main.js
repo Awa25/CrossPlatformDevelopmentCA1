@@ -37,13 +37,13 @@ else {
   if (date.getDate() !== loginD.getDate() || nowTime - loginTime >= 24 * 3600 * 1000) {
     tasksFinished = []
     tasksTodo = []
-    //tasksDeleted = []
+    tasksDeleted = []
 
     // LocalStorage - save value.
     // JSON.stringify - convert data to string.
     localStorage.setItem('tasksFinished', JSON.stringify(tasksFinished))
     localStorage.setItem('tasksTodo', JSON.stringify(tasksTodo))
-    //localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
+    localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
   }
 }
 
@@ -59,6 +59,18 @@ tabManage.forEach((el, index) => {
     activeTab(index)
     activeContent(index)
   })
+})
+
+taskDeleted.addEventListener('click', (taskRemoved) => {
+  const target = taskRemoved.target
+  const index = target.getAttribute("remove-index")
+  if(target.classList.contains('removed')){
+    if(confirm('Are You Sure?')){
+      tasksDeleted.splice(index, 1)
+      localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
+      //localStorage.removeItem()
+    }
+  }
 })
 
 // Navigation active.
@@ -171,12 +183,15 @@ function genFinished() {
 // Set Deleted task list
 function genDeleted() {
   let deleteHtml = ''
-  tasksDeleted.forEach((item) => {
+  tasksDeleted.forEach((item, index) => {
     deleteHtml +=
       `<div class="task-item">
         <div>
           <span class="task-text">${item.name}</span>
           <p class="task-text2">Due: ${item.date}&nbsp;&nbsp;&nbsp; at ${item.time}</p>
+        </div>
+        <div>
+          <span class="btns removed remove-index="${index}" enable-click">Remove</span>
         </div>
       </div>`
   })
@@ -186,13 +201,4 @@ function genDeleted() {
 
 closeDom.addEventListener('click', () => {
   ipcRenderer.send('mainWindow:close')
-})
-
-taskDeleted.addEventListener('click', (taskRemoved) => {
-  const target = taskRemoved.target
-  if(target.classList.contains('removed')){
-    if(confirm('Are You Sure?')){
-      localStorage.removeItem()
-    }
-  }
 })
