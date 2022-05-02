@@ -67,8 +67,8 @@ taskDeleted.addEventListener('click', (taskRemoved) => {
   if(target.classList.contains('removed')){
     if(confirm('Are You Sure?')){
       tasksDeleted.splice(index, 1)
-      localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
-      //localStorage.removeItem()
+      //localStorage.setItem('tasksDeleted', JSON.stringify(tasksDeleted))
+      localStorage.clear()
     }
   }
 })
