@@ -11,7 +11,7 @@ const path = require('path')
 const { app, BrowserWindow, ipcMain, Menu, Tray, screen } = electron
 
 // System tray icon.
-const iconPath = path.join(__dirname, './src/img/icon.png') 
+const iconPath = path.join(__dirname, './src/img/iconTemplate.png') 
 
 // Keep this window to create the application.
 let mainWindow
