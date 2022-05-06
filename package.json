@@ -5,29 +5,31 @@
   "main": "index.js",
   "scripts": {
     "start": "electron index.js",
-    "dev": "electron .",
-    "pack": "build --dir",
-    "dist": "build",
-    "build-icon": "electron-icon-builder --input=./public/icon.png --output=build --flatten"
+    "pack": "electron-builder --dir",
+    "dist": "electron-build",
+    "build-icon": "electron-icon-builder --input=./public/icon.png --flatten"
   },
   "build": {
-    "appId": "task.manager", 
+    "appId": "task.manager",
     "productName": "Task Manager",
-    "copyright": "Copyright © 2022 Awa&Ruby"
- },
+    "copyright": "Copyright © 2022 Awa&Ruby",
+    "asar": true
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Awa555/CrossPlatformDevelopmentCA1.git"
   },
   "author": "Awa & Ruby",
   "license": "ISC",
+  "keywords": [],
   "bugs": {
     "url": "https://github.com/Awa555/CrossPlatformDevelopmentCA1/issues"
   },
   "homepage": "https://github.com/Awa555/CrossPlatformDevelopmentCA1#readme",
   "devDependencies": {
-    "electron": "^18.0.3",
+    "electron": "^18.2.0",
     "electron-builder": "^22.14.13",
-    "electron-icon-builder": "^2.0.1"
+    "electron-icon-builder": "^2.0.1",
+    "electron-packager": "^15.2.0"
   }
 }
